@@ -35,12 +35,6 @@ pipeline {
 			bat "docker compose up search-module book-flight"
 		}
 		}
-		stage('CloseGrid'){
-		steps{
-			
-			bat "docker compose down"
-		}
-		}
     }
 	post{
 		always{
