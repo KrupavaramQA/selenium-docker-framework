@@ -35,10 +35,10 @@ pipeline {
 			bat "docker up search-module book-flight"
 		}
 		}
-    }
+
 	posts{
 		always{
-			archiveArtifacts artifacts:reports/*
+			archiveArtifacts artifacts:Reports/*
 			bat "docker compose down"
 		}
 	}
