@@ -38,7 +38,7 @@ pipeline {
     }
 	post{
 		always{
-			archiveArtifacts artifacts:"Reports/*.*"
+			archiveArtifacts artifacts:"D:\GIT\Reports\*.*"
 			bat "docker compose down"
 		}
 	}
