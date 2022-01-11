@@ -23,7 +23,7 @@ pipeline {
 			    }                           
             }
         }
-		stage('SetExecution'){
+		stage('StartGrid'){
 		steps{
 			
 			bat "docker compose up hub chrome firefox"
