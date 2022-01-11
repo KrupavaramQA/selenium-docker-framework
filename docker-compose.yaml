@@ -16,7 +16,7 @@ services:
     environment:
       - HUB_HOST=hub
   search-module:
-    image: kneerati12345/selenium-docker-test
+    image: krupaautomation/selenium-docker-exec
     depends_on:
       - chrome
       - firefox
@@ -25,9 +25,9 @@ services:
       - BROWSER=firefox
       - MODULE=search-module.xml
     volumes:
-      - D:\SeleniumProjects\selenium-docker-master\output\Search:/usr/share/udemy/test-output
+      - D:\GIT\Reports\search-module:/usr/share/udemy/test-output
   book-flight:
-    image: kneerati12345/selenium-docker-test
+    image: krupaautomation/selenium-docker-exec
     depends_on:
       - chrome
       - firefox
@@ -36,4 +36,4 @@ services:
       - BROWSER=firefox
       - MODULE=book-flight-module.xml
     volumes:
-      - D:\SeleniumProjects\selenium-docker-master\output\BookFlight:/usr/share/udemy/test-output
+      - D:\GIT\Reports\book-flight:/usr/share/udemy/test-output

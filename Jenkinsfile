@@ -1,33 +1,46 @@
 pipeline {
-    agent none
-    stages {
-        stage('Build Jar') {
-            agent {
-                docker {
-                    image 'maven:3-alpine'
-                    args '-v $HOME/.m2:/root/.m2'
-                }
-            }
+    // master executor should be set to 0
+    agent any
+	stages{
+        stage('CodePackage') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                //sh
+                bat "mvn clean package -DskipTests"
             }
         }
-        stage('Build Image') {
+        stage('BuildImage') {
             steps {
-                script {
-                	app = docker.build("vinsdocker/selenium-docker")
-                }
+                //sh
+                bat "docker build -t=krupaautomation/selenium-docker-exec ."
             }
         }
-        stage('Push Image') {
+        stage('PublishImage') {
             steps {
-                script {
-			        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-			        	app.push("${BUILD_NUMBER}")
-			            app.push("latest")
-			        }
-                }
+			    withCredentials([usernamePassword(credentialsId: 'krupadocker', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                    //sh
+			        bat "docker login --username=${user} --password=${pass}"
+			        bat "docker push krupaautomation/selenium-docker-exec"
+			    }                           
             }
         }
+		stage('SetExecution'){
+		steps{
+			
+			bat "docker compose up hub chrome firefox"
+		}
+		}
+		stage('RunTest'){
+		steps{
+			
+			bat "docker up search-module book-flight"
+		}
+		}
+		)
     }
+	posts{
+		always{
+			archiveArtifacts artifacts:reports/*
+			bat "docker compose down"
+		}
+	}
 }
