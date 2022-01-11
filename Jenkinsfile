@@ -35,12 +35,11 @@ pipeline {
 			bat "docker up search-module book-flight"
 		}
 		}
-    }
-	posts{
-		always{
-			archiveArtifacts artifacts:Reports/*.*
+		stage('CloseGrid'){
+		steps{
+			
 			bat "docker compose down"
 		}
-	}
-}
+		}
+    }
 }
