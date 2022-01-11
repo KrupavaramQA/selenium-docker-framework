@@ -35,7 +35,7 @@ pipeline {
 			bat "docker up search-module book-flight"
 		}
 		}
-
+    }
 	posts{
 		always{
 			archiveArtifacts artifacts:Reports/*
