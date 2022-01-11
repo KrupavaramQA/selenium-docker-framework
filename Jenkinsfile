@@ -32,7 +32,7 @@ pipeline {
 		stage('RunTest'){
 		steps{
 			
-			bat "docker up search-module book-flight"
+			bat "docker compose up search-module book-flight"
 		}
 		}
 		stage('CloseGrid'){
