@@ -8,23 +8,24 @@ pipeline {
                 bat "mvn clean package -DskipTests"
             }
         }
-		stage('StartGrid-Docker'){
-		steps{
-			
-			bat "docker compose up hub chrome firefox -d"
-		}
-		stage('BuildImage-Docker') {
+        stage('BuildImage-Docker') {
             steps {
                 //sh
                 bat "docker build -t=krupaautomation/selenium-docker-exec ."
             }
         }
-		stage('Clean-Existing-Images-Docker') {
-            steps {
-                //sh
-                bat "docker system prune -af"
-            }
-        }
+		stage('StartGrid-Docker'){
+		steps{
+			
+			bat "docker compose up hub chrome firefox -d"
+		}
+		}
+		
+		stage('Clean-Docker'){
+		steps{
+			
+			bat "docker system prune -af"
+		}
 		}
 		stage('RunTest-Automation-Test'){
 		steps{
