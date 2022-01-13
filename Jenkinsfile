@@ -8,19 +8,13 @@ pipeline {
                 bat "mvn clean package -DskipTests"
             }
         }
-		stage('Clean-Docker'){
-		steps{
-			
-			bat "docker system prune -af"
-		}
-		}
-        stage('BuildImage-Docker') {
+        stage('Build-Image-Docker') {
             steps {
                 //sh
                 bat "docker build -t=krupaautomation/selenium-docker-exec ."
             }
         }
-		stage('PublishImage-Docker') {
+		stage('Publish-Image-Docker') {
             steps {
 			    withCredentials([usernamePassword(credentialsId: 'krupadocker', passwordVariable: 'pass', usernameVariable: 'user')]) {
                     //sh
@@ -29,7 +23,7 @@ pipeline {
 			    }                           
             }
         }
-		stage('StartGrid-Docker'){
+		stage('Start-Grid-Docker'){
 		steps{
 			
 			bat "docker compose up hub chrome firefox -d"
