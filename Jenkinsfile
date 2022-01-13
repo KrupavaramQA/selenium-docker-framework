@@ -26,7 +26,7 @@ pipeline {
 		stage('StartGrid-Docker'){
 		steps{
 			
-			bat "docker compose up -d hub chrome firefox"
+			bat "docker compose up hub chrome firefox -d"
 		}
 		}
 		stage('RunTest-Automation-Test'){
