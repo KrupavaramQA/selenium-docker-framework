@@ -34,6 +34,15 @@ pipeline {
 			
 			bat "docker compose up search-module book-flight"
 		}
+		stage('PublishImage-Docker') {
+            steps {
+			    withCredentials([usernamePassword(credentialsId: 'krupadocker', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                    //sh
+			        bat "docker login --username=${user} --password=${pass}"
+			        bat "docker push krupaautomation/selenium-docker-exec"
+			    }                           
+            }
+        }
 		}
 		stage('StopGrid-Docker'){
 		steps{
