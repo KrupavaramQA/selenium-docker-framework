@@ -11,7 +11,7 @@ pipeline {
         stage('Build-Image-Docker') {
             steps {
                 //sh
-                bat "docker build -t=krupaautomation/selenium-docker-exec ."
+                bat "docker build -t krupaautomation/selenium-docker-exec ."
             }
         }
 		stage('Publish-Image-Docker') {
